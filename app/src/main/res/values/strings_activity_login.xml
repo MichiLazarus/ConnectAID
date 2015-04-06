@@ -1,9 +1,11 @@
 <resources>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+
     <string name="prompt_password">Passwort</string>
     <string name="action_sign_in">ANMELDEN</string>
+    <string name="title">ConnectAID</string>
+    <string name="prompt_id">ID</string>
 
 
     <string name="error_invalid_email">This email address is invalid</string>
