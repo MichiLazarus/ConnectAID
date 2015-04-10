@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" tools:context=".LoginActivity"
     android:baselineAligned="false"
-    android:background="#ffb30000">
+>
 
     <!-- Login progress -->
     <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLargeInverse"
@@ -45,36 +45,47 @@
                 android:textStyle="bold"
                 android:textColor="#ffffffff" />
 
-            <AutoCompleteTextView android:id="@+id/userid" android:layout_width="match_parent"
-                android:layout_height="0dp" android:hint="@string/prompt_id"
-                android:inputType="text" android:maxLines="1"
-                android:singleLine="true"
-                android:layout_weight="1"
-                android:textColorHint="#ffffffff"
-                android:textColor="#ffffffff"
-                android:backgroundTint="#ffffffff"
+            <EditText
+                android:id="@+id/userid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#800000"
+                android:hint="ID"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="10dp"
                 android:textSize="20sp"
-                android:layout_gravity="center_horizontal" />
+                android:textColor="#ffffffff"
+                android:textColorHint="#ffffffff"
+                android:layout_gravity="center_horizontal"/>
 
-            <EditText android:id="@+id/password" android:layout_width="match_parent"
-                android:layout_height="0dp" android:hint="@string/prompt_password"
-                android:imeOptions="actionUnspecified" android:inputType="textPassword"
-                android:maxLines="1" android:singleLine="true"
-                android:layout_weight="1"
+            <EditText android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:background="#800000"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:textSize="20sp"
                 android:password="true"
                 android:textColorHint="#ffffffff"
                 android:textColor="#ffffffff"
-                android:backgroundTint="#ffffffff"
+
                 android:layout_gravity="center_horizontal" />
 
             <Button
-                android:hint="@string/action_sign_in"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
                 android:id="@+id/btn_Login"
-                android:layout_weight="1"
-                android:textColorHint="#ff870000"
-                android:layout_gravity="center_horizontal" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@drawable/btn_login"
+                android:text="Login"
+                android:textColor="#fff"
+                android:layout_gravity="center_horizontal"
+                />
 
         </LinearLayout>
     </ScrollView>

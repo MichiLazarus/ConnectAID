@@ -3,7 +3,7 @@
     <!-- Strings related to login -->
 
     <string name="prompt_password">Passwort</string>
-    <string name="action_sign_in">ANMELDEN</string>
+    <string name="btn_sign_in">ANMELDEN</string>
     <string name="title">ConnectAID</string>
     <string name="prompt_id">ID</string>
 

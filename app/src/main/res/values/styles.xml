@@ -3,6 +3,19 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">#b30000</item>
+
+        <!-- windowBackground is used for the background-color of the app -->
+        <item name="android:windowBackground">@color/appBackground</item>
+
+        <!-- colorAccent is used as the default value for colorControlActivated,
+             which is used to tint widgets -->
+        <item name="colorAccent">#ffffff</item>
+
+        <!-- You can also set colorControlNormal, colorControlActivated
+             colorControlHighlight, and colorSwitchThumbNormal. -->
+
     </style>
 
 </resources>
