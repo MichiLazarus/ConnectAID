@@ -60,17 +60,31 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                String email = inputUserId.getText().toString();
+                String userId = inputUserId.getText().toString();
                 String password = inputPassword.getText().toString();
 
                 // Check for empty data in the form
-                if (email.trim().length() > 0 && password.trim().length() > 0) {
+                if (userId.trim().length() > 0 && password.trim().length() > 0) {
                     // login user
-                    checkLogin(email, password);
+                    checkLogin(userId, password);
+
+                    // Check for empty ID field
+                } else if (userId.trim().length() == 0 && password.trim().length() > 0) {
+                    // Prompt user to enter his ID
+                    Toast.makeText(getApplicationContext(),
+                            "Bitte ID eingeben.", Toast.LENGTH_LONG)
+                            .show();
+
+                    // Check for empty Password field
+                } else if (userId.trim().length() > 0 && password.trim().length() == 0) {
+                    // Prompt user to enter his Password
+                    Toast.makeText(getApplicationContext(),
+                            "Bitte Passwort eingeben.", Toast.LENGTH_LONG)
+                            .show();
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
-                            "Please enter the credentials!", Toast.LENGTH_LONG)
+                            "Bitte ID und Passwort eingeben.", Toast.LENGTH_LONG)
                             .show();
                 }
             }
@@ -82,7 +96,7 @@ public class LoginActivity extends Activity {
     /**
      * function to verify login details in mysql db
      * */
-    private void checkLogin(final String email, final String password) {
+    private void checkLogin(final String userId, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
 
@@ -126,7 +140,7 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Login Error", "Login Error: " + error.getMessage());
+                Log.e("Login fehlgeschlagen", "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
@@ -138,7 +152,7 @@ public class LoginActivity extends Activity {
                 // Posting parameters to login url
                 Map<String,String> params = new HashMap<>();
                 params.put("tag", "login");
-                params.put("email", email);
+                params.put("userId", userId);
                 params.put("password", password);
 
                 return params;

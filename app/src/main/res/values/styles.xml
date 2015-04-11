@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- colorPrimary is used for the default action bar background -->
-        <item name="colorPrimary">#b30000</item>
+        <item name="colorPrimary">#800000</item>
 
         <!-- windowBackground is used for the background-color of the app -->
         <item name="android:windowBackground">@color/appBackground</item>
