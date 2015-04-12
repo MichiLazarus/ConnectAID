@@ -9,13 +9,6 @@
         <!-- windowBackground is used for the background-color of the app -->
         <item name="android:windowBackground">@color/appBackground</item>
 
-        <!-- colorAccent is used as the default value for colorControlActivated,
-             which is used to tint widgets -->
-        <item name="colorAccent">#ffffff</item>
-
-        <!-- You can also set colorControlNormal, colorControlActivated
-             colorControlHighlight, and colorSwitchThumbNormal. -->
-
     </style>
 
 </resources>

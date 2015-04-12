@@ -1,8 +1,11 @@
 package universityofvienna.connectaid;
 
-import android.app.Activity;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,7 +13,7 @@ import android.widget.TextView;
 import session.SessionManager;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     private TextView txtName;
     private TextView txtEmail;
@@ -23,8 +26,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtName = (TextView) findViewById(R.id.name);
-        txtEmail = (TextView) findViewById(R.id.email);
+
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         // session manager
@@ -42,6 +44,15 @@ public class MainActivity extends Activity {
                 logoutUser();
             }
         });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        return true;
     }
 
     /**
