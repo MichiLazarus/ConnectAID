@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -50,7 +51,32 @@ public class LoginActivity1 extends Activity {
             public void onClick(View v) {
                 final String username = usernameField.getText().toString();
                 final String password = passwordField.getText().toString();
-                new Connect(LoginActivity1.this,(TextView) findViewById(R.id.textView)).execute(username, password);
+
+                if (username.trim().length() > 0 && password.trim().length() > 0) {
+                    // login user
+                    new Connect(LoginActivity1.this,(TextView) findViewById(R.id.textView)).execute(username, password);
+
+                    // Check for empty ID field
+                } else if (username.trim().length() == 0 && password.trim().length() > 0) {
+                    // Prompt user to enter his ID
+                    Toast.makeText(getApplicationContext(),
+                            "Bitte ID eingeben.", Toast.LENGTH_LONG)
+                            .show();
+
+                    // Check for empty Password field
+                } else if (username.trim().length() > 0 && password.trim().length() == 0) {
+                    // Prompt user to enter his Password
+                    Toast.makeText(getApplicationContext(),
+                            "Bitte Passwort eingeben.", Toast.LENGTH_LONG)
+                            .show();
+                } else {
+                    // Prompt user to enter credentials
+                    Toast.makeText(getApplicationContext(),
+                            "Bitte ID und Passwort eingeben.", Toast.LENGTH_LONG)
+                            .show();
+                }
+
+
             }
         });
 

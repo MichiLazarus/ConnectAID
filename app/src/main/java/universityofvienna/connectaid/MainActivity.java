@@ -32,9 +32,9 @@ public class MainActivity extends ActionBarActivity {
         // session manager
         session = new SessionManager(getApplicationContext());
 
-        if (!session.isLoggedIn()) {
+       /* if (!session.isLoggedIn()) {
             logoutUser();
-        }
+        }*/
 
         // Logout button click event
         btnLogout.setOnClickListener(new View.OnClickListener() {
