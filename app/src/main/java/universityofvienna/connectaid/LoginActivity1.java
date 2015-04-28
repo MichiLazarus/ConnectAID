@@ -1,5 +1,6 @@
 package universityofvienna.connectaid;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -34,7 +35,7 @@ import java.util.List;
 import static android.support.v4.app.ActivityCompat.startActivity;
 
 
-public class LoginActivity1 extends ActionBarActivity {
+public class LoginActivity1 extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

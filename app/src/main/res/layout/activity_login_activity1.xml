@@ -61,7 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
                 android:background="#800000"
-                android:hint="@string/prompt_password"
+                android:hint="password"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="10dp"
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/textView"
-                android:text="hallo" />
+                android:text="" />
 
             <com.andexert.library.RippleView
                 android:id="@+id/btn"

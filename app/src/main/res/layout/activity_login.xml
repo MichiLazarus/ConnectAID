@@ -45,7 +45,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
                 android:background="#800000"
-                android:hint="@string/id"
+                android:hint="id"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="10dp"
@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
                 android:background="#800000"
-                android:hint="@string/password"
+                android:hint="password"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="10dp"
@@ -69,6 +69,12 @@
                 android:textColorHint="#ffffffff"
                 android:textColor="#ffffffff"
                 android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/textView" />
 
             <com.andexert.library.RippleView
                 android:id="@+id/rippleView"
@@ -83,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_login"
-                android:text="@string/btn_Login"
+                android:text="Login"
                 android:textColor="#fff"
                 android:layout_gravity="center_horizontal"
                 />
