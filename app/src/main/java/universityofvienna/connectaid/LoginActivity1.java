@@ -200,7 +200,9 @@ public class LoginActivity1 extends Activity {
              Intent nextScreen = new Intent(context,MainActivity.class);
              context.startActivity(nextScreen);
          }else {
-
+             Toast.makeText(context,
+                     result, Toast.LENGTH_LONG)
+                     .show();
              this.success.setText(result);
          }
      }

@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         session.setLogin(false);
 
         // Launching the login activity
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity1.class);
         startActivity(intent);
         finish();
     }
