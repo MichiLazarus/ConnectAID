@@ -4,12 +4,17 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import qrreader.IntentIntegrator;
+import qrreader.IntentResult;
 import session.SessionManager;
 
 
@@ -18,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
     private TextView txtName;
     private TextView txtEmail;
     private Button btnLogout;
-
+    private Button btnScan;
     private SessionManager session;
 
     @Override
@@ -28,13 +33,15 @@ public class MainActivity extends ActionBarActivity {
 
 
         btnLogout = (Button) findViewById(R.id.btnLogout);
-
+        btnScan = (Button) findViewById(R.id.btnScan);
         // session manager
         session = new SessionManager(getApplicationContext());
 
        /* if (!session.isLoggedIn()) {
             logoutUser();
         }*/
+
+
 
         // Logout button click event
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +51,26 @@ public class MainActivity extends ActionBarActivity {
                 logoutUser();
             }
         });
+    }
+
+    public void onClick(View view){
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.initiateScan();
+
+    }
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            String barcode;
+            barcode = scanResult.getContents();
+            Toast.makeText(getApplicationContext(),
+                    barcode, Toast.LENGTH_LONG)
+                    .show();
+        }
+        // else continue with any other code you need in the method
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
