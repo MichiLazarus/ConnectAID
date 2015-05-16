@@ -17,10 +17,17 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
 
         </activity>
+
+        <activity
+            android:name=".PatientActivity"
+            android:label="PatientActivity">
+            </activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
+
         <activity
             android:name=".LoginActivity1"
             android:label="@string/title_activity_login_activity1" >

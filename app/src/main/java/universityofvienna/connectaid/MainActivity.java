@@ -65,9 +65,9 @@ public class MainActivity extends ActionBarActivity {
         if (scanResult != null) {
             String barcode;
             barcode = scanResult.getContents();
-            Toast.makeText(getApplicationContext(),
-                    barcode, Toast.LENGTH_LONG)
-                    .show();
+            PatientActivity.scanResult = barcode;
+            Intent nextScreen = new Intent(this,PatientActivity.class);
+            this.startActivity(nextScreen);
         }
         // else continue with any other code you need in the method
 

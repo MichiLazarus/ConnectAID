@@ -33,6 +33,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import myhttp.MyHttpClient;
+
 import static android.support.v4.app.ActivityCompat.startActivity;
 
 
@@ -142,8 +144,8 @@ public class LoginActivity1 extends Activity {
 
          //http post
          try {
-             HttpClient httpclient = new DefaultHttpClient();
-             HttpPost httppost = new HttpPost("http://81.217.54.146/test.php");
+             HttpClient httpclient = new MyHttpClient(context);
+             HttpPost httppost = new HttpPost("https://81.217.54.146/test.php");
              httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
              HttpResponse response = httpclient.execute(httppost);
              HttpEntity entity = response.getEntity();
