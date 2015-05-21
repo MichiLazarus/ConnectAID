@@ -1,13 +1,17 @@
 package universityofvienna.connectaid;
 
 import android.app.Activity;
+import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,32 +42,42 @@ import myhttp.MyHttpClient;
 public class PatientActivity extends Activity {
 
     protected static String scanResult;
+    private TabHost mytabhost;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient);
+        setContentView(R.layout.activity_tab);
         EditText vorname = (EditText) findViewById(R.id.Vorname);
         EditText nachname = (EditText) findViewById(R.id.Nachname);
         EditText svnr = (EditText) findViewById(R.id.SVNR);
         EditText gebdatum = (EditText) findViewById(R.id.Gebdatum);
+        mytabhost = (TabHost) findViewById(R.id.tabHost);
+        mytabhost.setup();
+
+        TabHost.TabSpec spec = mytabhost.newTabSpec("tab_info");
+        spec.setIndicator("Info");
+        spec.setContent(R.id.tab1);
+        mytabhost.addTab(spec);
+        mytabhost.addTab(mytabhost.newTabSpec("tab_behandlung").setIndicator("Behandlung").setContent(R.id.tab2));
 
         try {
             String result = new PatientData(PatientActivity.this).execute(scanResult).get();
-            vorname.setText(result);
 
-            try {
+            if(!result.equals("failed")) {
+                try {
 
-                JSONArray jArray = new JSONArray(result);
-                for (int i = 0; i < jArray.length(); i++) {
-                    JSONObject json_data = jArray.getJSONObject(i);
-                    vorname.setText(json_data.getString("vorname"));
-                    nachname.setText(json_data.getString("nachname"));
-                    svnr.setText(json_data.getString("svnr"));
-                    gebdatum.setText(json_data.getString("geburtsdatum"));
+                    JSONArray jArray = new JSONArray(result);
+                    for (int i = 0; i < jArray.length(); i++) {
+                        JSONObject json_data = jArray.getJSONObject(i);
+                        vorname.setText(json_data.getString("vorname"));
+                        nachname.setText(json_data.getString("nachname"));
+                        svnr.setText(json_data.getString("svnr"));
+                        gebdatum.setText(json_data.getString("geburtsdatum"));
+                    }
+
+                } catch (JSONException e) {
+                    Log.e("log_tag", "Error parsing data " + e.toString());
                 }
-
-            } catch (JSONException e) {
-                Log.e("log_tag", "Error parsing data " + e.toString());
             }
 
         } catch (InterruptedException e) {
@@ -74,6 +88,7 @@ public class PatientActivity extends Activity {
 
 
     }
+
 
     public String getScanResult() {
         return scanResult;
