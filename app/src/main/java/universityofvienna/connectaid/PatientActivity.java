@@ -47,10 +47,16 @@ public class PatientActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
+
         EditText vorname = (EditText) findViewById(R.id.Vorname);
         EditText nachname = (EditText) findViewById(R.id.Nachname);
         EditText svnr = (EditText) findViewById(R.id.SVNR);
         EditText gebdatum = (EditText) findViewById(R.id.Gebdatum);
+        EditText krankenhaus = (EditText) findViewById(R.id.Krankenhaus);
+        EditText transport = (EditText) findViewById(R.id.transport);
+        EditText prioritaet = (EditText) findViewById(R.id.prioritaet);
+        EditText bewusstsein = (EditText) findViewById(R.id.bewusstsein);
+
         mytabhost = (TabHost) findViewById(R.id.tabHost);
         mytabhost.setup();
 
@@ -73,6 +79,10 @@ public class PatientActivity extends Activity {
                         nachname.setText(json_data.getString("nachname"));
                         svnr.setText(json_data.getString("svnr"));
                         gebdatum.setText(json_data.getString("geburtsdatum"));
+                        krankenhaus.setText(json_data.getString("krankenhaus"));
+                        transport.setText(json_data.getString("transport"));
+                        prioritaet.setText(json_data.getString("prioritaetBehandlung"));
+                        bewusstsein.setText(json_data.getString("bewusstsein"));
                     }
 
                 } catch (JSONException e) {
