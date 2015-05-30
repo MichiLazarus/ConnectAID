@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import model.Patient;
 import myhttp.MyHttpClient;
 
 /**
@@ -42,20 +43,34 @@ import myhttp.MyHttpClient;
 public class PatientActivity extends Activity {
 
     protected static String scanResult;
+    protected static String phpfile = "https://81.217.54.146/showPatient.php";
+    private boolean insert = false;
     private TabHost mytabhost;
+    EditText vorname;
+    EditText nachname;
+    EditText svnr;
+    EditText gebdatum;
+    EditText krankenhaus;
+    EditText transport;
+    EditText prioritaet;
+    EditText bewusstsein;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
-        EditText vorname = (EditText) findViewById(R.id.Vorname);
-        EditText nachname = (EditText) findViewById(R.id.Nachname);
-        EditText svnr = (EditText) findViewById(R.id.SVNR);
-        EditText gebdatum = (EditText) findViewById(R.id.Gebdatum);
-        EditText krankenhaus = (EditText) findViewById(R.id.Krankenhaus);
-        EditText transport = (EditText) findViewById(R.id.transport);
-        EditText prioritaet = (EditText) findViewById(R.id.prioritaet);
-        EditText bewusstsein = (EditText) findViewById(R.id.bewusstsein);
+         vorname = (EditText) findViewById(R.id.Vorname);
+         nachname = (EditText) findViewById(R.id.Nachname);
+         svnr = (EditText) findViewById(R.id.SVNR);
+         gebdatum = (EditText) findViewById(R.id.Gebdatum);
+         krankenhaus = (EditText) findViewById(R.id.Krankenhaus);
+         transport = (EditText) findViewById(R.id.transport);
+         prioritaet = (EditText) findViewById(R.id.prioritaet);
+         bewusstsein = (EditText) findViewById(R.id.bewusstsein);
+
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("id", scanResult));
 
         mytabhost = (TabHost) findViewById(R.id.tabHost);
         mytabhost.setup();
@@ -67,7 +82,7 @@ public class PatientActivity extends Activity {
         mytabhost.addTab(mytabhost.newTabSpec("tab_behandlung").setIndicator("Behandlung").setContent(R.id.tab2));
 
         try {
-            String result = new PatientData(PatientActivity.this).execute(scanResult).get();
+            String result = new PatientData(PatientActivity.this).execute(nameValuePairs).get();
 
             if(!result.equals("failed")) {
                 try {
@@ -88,6 +103,10 @@ public class PatientActivity extends Activity {
                 } catch (JSONException e) {
                     Log.e("log_tag", "Error parsing data " + e.toString());
                 }
+            }else{
+
+                this.insert = true;
+
             }
 
         } catch (InterruptedException e) {
@@ -97,6 +116,66 @@ public class PatientActivity extends Activity {
         }
 
 
+    }
+
+    public void onClick(View view){
+
+
+
+        if(insert){
+            String result="";
+            phpfile = "https://81.217.54.146/insertPatient.php";
+            try {
+                result = new PatientData(PatientActivity.this).execute(getValueList()).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            if("success".equals(result)){
+                insert = false;
+                Toast.makeText(this,
+                        "Daten wurden gespeichert", Toast.LENGTH_LONG)
+                        .show();
+            }
+
+        }else{
+            String result="";
+            phpfile = "https://81.217.54.146/updatePatient.php";
+            try {
+                result = new PatientData(PatientActivity.this).execute(getValueList()).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            if("success".equals(result)){
+
+                Toast.makeText(this,
+                        "Daten wurden gespeichert", Toast.LENGTH_LONG)
+                        .show();
+
+            }
+        }
+    }
+
+
+    public List<NameValuePair> getValueList(){
+        Patient p1 = new Patient(scanResult,this.vorname.getText().toString(),this.nachname.getText().toString(),this.svnr.getText().toString(),this.gebdatum.getText().toString(),
+        this.krankenhaus.getText().toString(),this.transport.getText().toString(),this.prioritaet.getText().toString(),this.bewusstsein.getText().toString());
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("id", scanResult));
+        nameValuePairs.add(new BasicNameValuePair("vorname", p1.getVorname()));
+        nameValuePairs.add(new BasicNameValuePair("nachname", p1.getNachname()));
+        nameValuePairs.add(new BasicNameValuePair("svnr", p1.getSvnr()));
+        nameValuePairs.add(new BasicNameValuePair("gebdatum", p1.getGebdatum()));
+        nameValuePairs.add(new BasicNameValuePair("krankenhaus", p1.getKrankenhaus()));
+        nameValuePairs.add(new BasicNameValuePair("transport", p1.getTransport()));
+        nameValuePairs.add(new BasicNameValuePair("prioritaet", p1.getPrioritaet()));
+        nameValuePairs.add(new BasicNameValuePair("bewusstsein", p1.getBewusstsein()));
+        return nameValuePairs;
     }
 
 
@@ -112,7 +191,7 @@ public class PatientActivity extends Activity {
 
 
 
-class PatientData extends AsyncTask<String,String,String> {
+class PatientData extends AsyncTask<List,String,String> {
 
     private Context context;
 
@@ -122,20 +201,21 @@ class PatientData extends AsyncTask<String,String,String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected String doInBackground(List... params) {
 
         String result="";
         String ergebnis ="";
-        String id = params[0];
+        List<NameValuePair> nameValuePairs = params[0];
 
         InputStream is = null;
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("id", id));
+
 
         //http post
         try {
             HttpClient httpclient = new MyHttpClient(this.context);
-            HttpPost httppost = new HttpPost("https://81.217.54.146/showPatient.php");
+            System.out.println(PatientActivity.phpfile);
+            System.out.println(nameValuePairs.toString());
+            HttpPost httppost = new HttpPost(PatientActivity.phpfile);
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
@@ -163,10 +243,11 @@ class PatientData extends AsyncTask<String,String,String> {
                 return "failed";
             }
 
+
         } catch (Exception e) {
             Log.e("log_tag", "Error converting result " + e.toString());
         }
-
+        PatientActivity.phpfile="https://81.217.54.146/showPatient.php";
         return result;
     }
 
