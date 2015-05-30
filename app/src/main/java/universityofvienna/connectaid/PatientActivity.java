@@ -154,7 +154,7 @@ public class PatientActivity extends Activity {
             if("success".equals(result)){
 
                 Toast.makeText(this,
-                        "Daten wurden gespeichert", Toast.LENGTH_LONG)
+                        "Daten wurden geaendert", Toast.LENGTH_LONG)
                         .show();
 
             }
