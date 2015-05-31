@@ -119,8 +119,17 @@
 
             <Switch
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/switch1" />
+                android:layout_height="match_parent"
+                android:id="@+id/bewusstsein"
+                android:layout_gravity="center_vertical"
+                android:showText="True"
+                android:textSize="20sp"
+                android:splitTrack="false"
+                android:switchMinWidth="100dp"
+                android:textOn="+"
+                android:textOff="-"
+                android:background="#800000"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
         </LinearLayout>
     </ScrollView>
 

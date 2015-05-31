@@ -263,9 +263,13 @@
                                 android:showText="false"
                                 android:splitTrack="false"
                                 android:switchMinWidth="100dp"
-                                android:textOn="+"
-                                android:textOff="-"
-                                android:background="#800000"/>
+                                android:textOn="Bew +"
+                                android:textOff="Bew -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
 
 
                         </LinearLayout>
