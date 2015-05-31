@@ -6,16 +6,16 @@ package model;
 public class Patient {
 
     private String id;
-    private String vorname = "";
-    private String nachname="";
-    private String svnr="";
-    private String gebdatum="";
-    private String krankenhaus="";
-    private String transport="";
-    private String prioritaet="";
-    private String bewusstsein="";
+    private String vorname ;
+    private String nachname;
+    private String svnr;
+    private String gebdatum;
+    private String krankenhaus;
+    private String transport;
+    private String prioritaet;
+    private boolean bewusstsein;
 
-    public Patient(String id,String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String transport, String prioritaet, String bewusstsein) {
+    public Patient(String id,String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String transport, String prioritaet, boolean bewusstsein) {
         this.vorname = vorname;
         this.id = id;
         this.nachname = nachname;
@@ -91,11 +91,11 @@ public class Patient {
         this.prioritaet = prioritaet;
     }
 
-    public String getBewusstsein() {
+    public boolean getBewusstsein() {
         return bewusstsein;
     }
 
-    public void setBewusstsein(String bewusstsein) {
+    public void setBewusstsein(boolean bewusstsein) {
         this.bewusstsein = bewusstsein;
     }
 }

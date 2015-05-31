@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    >
 
     <TabHost
         android:layout_width="fill_parent"
-        android:layout_height="453dp"
-        android:id="@+id/tabHost">
+        android:layout_height="fill_parent"
+        android:id="@+id/tabHost"
+        android:layout_weight="0.91">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -17,7 +19,8 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"></TabWidget>
+                android:layout_height="wrap_content"
+                ></TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -248,24 +251,23 @@
                                 android:text="Bewusstsein:"
                                 android:id="@+id/textView9"
                                 android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
                                 android:textColor="#ffffffff"
                                 android:textSize="17dp" />
 
-                            <EditText
-                                android:id="@+id/bewusstsein"
-                                android:layout_width="match_parent"
+                            <Switch
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="15dp"
-                                android:background="#800000"
-                                android:inputType="text"
-                                android:maxLines="1"
-                                android:padding="10dp"
-                                android:layout_marginTop="10dp"
-                                android:textSize="20sp"
-                                android:textColor="#ffffffff"
-                                android:textColorHint="#ffffffff"
-                                android:layout_gravity="center_horizontal"
-                                />
+                                android:id="@+id/bewusstsein"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="+"
+                                android:textOff="-"
+                                android:background="#800000"/>
+
+
                         </LinearLayout>
                     </ScrollView>
 
@@ -277,15 +279,17 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical"></LinearLayout>
+
             </FrameLayout>
         </LinearLayout>
     </TabHost>
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:text="Speichern"
         android:id="@+id/button"
+        android:layout_marginBottom="20dp"
         android:onClick="onClick"/>
 
 </LinearLayout>

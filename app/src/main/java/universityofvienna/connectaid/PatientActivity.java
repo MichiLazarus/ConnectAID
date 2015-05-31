@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +55,7 @@ public class PatientActivity extends Activity {
     EditText krankenhaus;
     EditText transport;
     EditText prioritaet;
-    EditText bewusstsein;
+    Switch bewusstsein;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class PatientActivity extends Activity {
          krankenhaus = (EditText) findViewById(R.id.Krankenhaus);
          transport = (EditText) findViewById(R.id.transport);
          prioritaet = (EditText) findViewById(R.id.prioritaet);
-         bewusstsein = (EditText) findViewById(R.id.bewusstsein);
+         bewusstsein = (Switch) findViewById(R.id.bewusstsein);
 
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", scanResult));
@@ -75,11 +77,19 @@ public class PatientActivity extends Activity {
         mytabhost = (TabHost) findViewById(R.id.tabHost);
         mytabhost.setup();
 
+
         TabHost.TabSpec spec = mytabhost.newTabSpec("tab_info");
         spec.setIndicator("Info");
         spec.setContent(R.id.tab1);
         mytabhost.addTab(spec);
         mytabhost.addTab(mytabhost.newTabSpec("tab_behandlung").setIndicator("Behandlung").setContent(R.id.tab2));
+
+        for(int i=0;i<mytabhost.getTabWidget().getChildCount();i++)
+        {
+            TextView tv = (TextView) mytabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
+            tv.setTextColor(Color.parseColor("#ffffff"));
+            tv.setTextSize(12);
+        }
 
         try {
             String result = new PatientData(PatientActivity.this).execute(nameValuePairs).get();
@@ -97,7 +107,12 @@ public class PatientActivity extends Activity {
                         krankenhaus.setText(json_data.getString("krankenhaus"));
                         transport.setText(json_data.getString("transport"));
                         prioritaet.setText(json_data.getString("prioritaetBehandlung"));
-                        bewusstsein.setText(json_data.getString("bewusstsein"));
+                        if(json_data.getString("bewusstsein").equals("1")){
+                           bewusstsein.setChecked(true);
+                        }else{
+                            bewusstsein.setChecked(false);
+                        }
+
                     }
 
                 } catch (JSONException e) {
@@ -119,8 +134,6 @@ public class PatientActivity extends Activity {
     }
 
     public void onClick(View view){
-
-
 
         if(insert){
             String result="";
@@ -164,7 +177,7 @@ public class PatientActivity extends Activity {
 
     public List<NameValuePair> getValueList(){
         Patient p1 = new Patient(scanResult,this.vorname.getText().toString(),this.nachname.getText().toString(),this.svnr.getText().toString(),this.gebdatum.getText().toString(),
-        this.krankenhaus.getText().toString(),this.transport.getText().toString(),this.prioritaet.getText().toString(),this.bewusstsein.getText().toString());
+        this.krankenhaus.getText().toString(),this.transport.getText().toString(),this.prioritaet.getText().toString(),this.bewusstsein.isChecked());
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", scanResult));
         nameValuePairs.add(new BasicNameValuePair("vorname", p1.getVorname()));
@@ -174,7 +187,11 @@ public class PatientActivity extends Activity {
         nameValuePairs.add(new BasicNameValuePair("krankenhaus", p1.getKrankenhaus()));
         nameValuePairs.add(new BasicNameValuePair("transport", p1.getTransport()));
         nameValuePairs.add(new BasicNameValuePair("prioritaet", p1.getPrioritaet()));
-        nameValuePairs.add(new BasicNameValuePair("bewusstsein", p1.getBewusstsein()));
+        if(p1.getBewusstsein()) {
+            nameValuePairs.add(new BasicNameValuePair("bewusstsein", "TRUE"));
+        }else{
+            nameValuePairs.add(new BasicNameValuePair("bewusstsein", "FALSE"));
+        }
         return nameValuePairs;
     }
 
