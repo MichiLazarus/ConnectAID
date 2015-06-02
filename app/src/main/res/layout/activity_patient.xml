@@ -117,6 +117,45 @@
                 android:layout_gravity="center_horizontal"
                 />
 
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.87"
+                android:layout_marginLeft="20dp">
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:text="I"
+                    android:id="@+id/triage1" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:text="II"
+                    android:id="@+id/triage2" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:text="III"
+                    android:id="@+id/triage3" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:text="IV"
+                    android:id="@+id/triage4" />
+
+            </LinearLayout>
+
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -130,7 +169,9 @@
                 android:textOff="-"
                 android:background="#800000"
                 android:textAppearance="@android:style/TextAppearance.Medium"/>
+
         </LinearLayout>
     </ScrollView>
+
 
 </LinearLayout>

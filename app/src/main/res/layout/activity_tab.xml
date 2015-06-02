@@ -229,21 +229,44 @@
                                 android:textColor="#ffffffff"
                                 android:textSize="17dp" />
 
-                            <EditText
-                                android:id="@+id/prioritaet"
+                            <LinearLayout
+                                android:orientation="horizontal"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="20dp"
-                                android:background="#800000"
-                                android:inputType="text"
-                                android:maxLines="1"
-                                android:padding="10dp"
-                                android:layout_marginTop="10dp"
-                                android:textSize="20sp"
-                                android:textColor="#ffffffff"
-                                android:textColorHint="#ffffffff"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                />
+                                android:layout_weight="0.87"
+                                android:layout_marginLeft="20dp">
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="71dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="I"
+                                    android:id="@+id/triage1" />
+
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="71dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="II"
+                                    android:id="@+id/triage2" />
+
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="71dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="III"
+                                    android:id="@+id/triage3" />
+
+                                <Button
+                                    style="?android:attr/buttonStyleSmall"
+                                    android:layout_width="71dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="IV"
+                                    android:id="@+id/triage4"
+                                    android:layout_marginBottom="20dp"/>
+
+                            </LinearLayout>
+
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -294,6 +317,6 @@
         android:text="Speichern"
         android:id="@+id/button"
         android:layout_marginBottom="20dp"
-        android:onClick="onClick"/>
+        android:onClick="onClickSave"/>
 
 </LinearLayout>

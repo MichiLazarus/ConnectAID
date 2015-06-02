@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TabHost;
@@ -54,9 +55,9 @@ public class PatientActivity extends Activity {
     EditText gebdatum;
     EditText krankenhaus;
     EditText transport;
-    EditText prioritaet;
     Switch bewusstsein;
-
+    Button t1,t2,t3,t4;
+    String prioritaet = "0";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +69,16 @@ public class PatientActivity extends Activity {
          gebdatum = (EditText) findViewById(R.id.Gebdatum);
          krankenhaus = (EditText) findViewById(R.id.Krankenhaus);
          transport = (EditText) findViewById(R.id.transport);
-         prioritaet = (EditText) findViewById(R.id.prioritaet);
          bewusstsein = (Switch) findViewById(R.id.bewusstsein);
+         t1 = (Button) findViewById(R.id.triage1);
+          t1.setOnClickListener(triageHandler);
+         t2 = (Button) findViewById(R.id.triage2);
+          t2.setOnClickListener(triageHandler);
+         t3 = (Button) findViewById(R.id.triage3);
+          t3.setOnClickListener(triageHandler);
+         t4 = (Button) findViewById(R.id.triage4);
+          t4.setOnClickListener(triageHandler);
+
 
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", scanResult));
@@ -106,7 +115,22 @@ public class PatientActivity extends Activity {
                         gebdatum.setText(json_data.getString("geburtsdatum"));
                         krankenhaus.setText(json_data.getString("krankenhaus"));
                         transport.setText(json_data.getString("transport"));
-                        prioritaet.setText(json_data.getString("prioritaetBehandlung"));
+                        prioritaet =  json_data.getString("prioritaetBehandlung");
+                        switch(prioritaet.charAt(0)){
+                             case('1'): t1.setBackgroundColor(Color.parseColor("#f44336"));
+                                        this.prioritaet = "1";
+                                        break;
+                             case('2'): t2.setBackgroundColor(Color.parseColor("#ff9800"));
+                                        this.prioritaet= "2";
+                                        break;
+                             case('3'): t3.setBackgroundColor(Color.YELLOW);
+                                        this.prioritaet= "3";
+                                        break;
+                             case('4'): t4.setBackgroundColor(Color.GREEN);
+                                        this.prioritaet= "4";
+                                        break;
+                             default:   this.prioritaet ="0";
+                         }
                         if(json_data.getString("bewusstsein").equals("1")){
                            bewusstsein.setChecked(true);
                         }else{
@@ -133,7 +157,7 @@ public class PatientActivity extends Activity {
 
     }
 
-    public void onClick(View view){
+    public void onClickSave(View view){
 
         if(insert){
             String result="";
@@ -172,12 +196,48 @@ public class PatientActivity extends Activity {
 
             }
         }
+
     }
 
+    View.OnClickListener triageHandler = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            switch(v.getId()) {
+                case R.id.triage1:
+                    t1.setBackgroundColor(Color.parseColor("#f44336"));
+                    t2.setBackgroundResource(android.R.drawable.btn_default);
+                    t3.setBackgroundResource(android.R.drawable.btn_default);
+                    t4.setBackgroundResource(android.R.drawable.btn_default);
+                    prioritaet = "1";
+                    break;
+                case R.id.triage2:
+                    t2.setBackgroundColor(Color.parseColor("#ff9800"));
+                    t1.setBackgroundResource(android.R.drawable.btn_default);
+                    t3.setBackgroundResource(android.R.drawable.btn_default);
+                    t4.setBackgroundResource(android.R.drawable.btn_default);
+                    prioritaet = "2";
+                    break;
+                case R.id.triage3:
+                    t3.setBackgroundColor(Color.YELLOW);
+                    t1.setBackgroundResource(android.R.drawable.btn_default);
+                    t2.setBackgroundResource(android.R.drawable.btn_default);
+                    t4.setBackgroundResource(android.R.drawable.btn_default);
+                    prioritaet = "3";
+                    break;
+                case R.id.triage4:
+                    t4.setBackgroundColor(Color.GREEN);
+                    t1.setBackgroundResource(android.R.drawable.btn_default);
+                    t2.setBackgroundResource(android.R.drawable.btn_default);
+                    t3.setBackgroundResource(android.R.drawable.btn_default);
+                    prioritaet = "4";
+                    break;
+            }
+        }
+    };
 
     public List<NameValuePair> getValueList(){
         Patient p1 = new Patient(scanResult,this.vorname.getText().toString(),this.nachname.getText().toString(),this.svnr.getText().toString(),this.gebdatum.getText().toString(),
-        this.krankenhaus.getText().toString(),this.transport.getText().toString(),this.prioritaet.getText().toString(),this.bewusstsein.isChecked());
+        this.krankenhaus.getText().toString(),this.transport.getText().toString(),this.prioritaet,this.bewusstsein.isChecked());
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", scanResult));
         nameValuePairs.add(new BasicNameValuePair("vorname", p1.getVorname()));
