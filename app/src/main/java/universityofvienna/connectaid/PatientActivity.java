@@ -55,7 +55,7 @@ public class PatientActivity extends Activity {
     EditText gebdatum;
     EditText krankenhaus;
     EditText transport;
-    Switch bewusstsein;
+    Switch bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend;
     Button t1,t2,t3,t4;
     String prioritaet = "0";
 
@@ -72,20 +72,28 @@ public class PatientActivity extends Activity {
          bewusstsein = (Switch) findViewById(R.id.bewusstsein);
          t1 = (Button) findViewById(R.id.triage1);
           t1.setOnClickListener(triageHandler);
+          t1.setBackgroundResource(android.R.drawable.btn_default);
          t2 = (Button) findViewById(R.id.triage2);
           t2.setOnClickListener(triageHandler);
+          t2.setBackgroundResource(android.R.drawable.btn_default);
          t3 = (Button) findViewById(R.id.triage3);
           t3.setOnClickListener(triageHandler);
+          t3.setBackgroundResource(android.R.drawable.btn_default);
          t4 = (Button) findViewById(R.id.triage4);
           t4.setOnClickListener(triageHandler);
+          t4.setBackgroundResource(android.R.drawable.btn_default);
 
-
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("id", scanResult));
+         atmung = (Switch) findViewById(R.id.atmung);
+         kreislauf = (Switch) findViewById(R.id.kreislauf);
+         sauerstoff = (Switch) findViewById(R.id.sauerstoff);
+         intubation = (Switch) findViewById(R.id.intubation);
+         beatmung = (Switch) findViewById(R.id.beatmung);
+         blutstillung = (Switch) findViewById(R.id.blutstillung);
+         pleuradrainage = (Switch) findViewById(R.id.pleuradrainage);
+         dringend = (Switch) findViewById(R.id.dringend);
 
         mytabhost = (TabHost) findViewById(R.id.tabHost);
         mytabhost.setup();
-
 
         TabHost.TabSpec spec = mytabhost.newTabSpec("tab_info");
         spec.setIndicator("Info");
@@ -100,6 +108,8 @@ public class PatientActivity extends Activity {
             tv.setTextSize(12);
         }
 
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("id", scanResult));
         try {
             String result = new PatientData(PatientActivity.this).execute(nameValuePairs).get();
 
@@ -131,11 +141,17 @@ public class PatientActivity extends Activity {
                                         break;
                              default:   this.prioritaet ="0";
                          }
-                        if(json_data.getString("bewusstsein").equals("1")){
-                           bewusstsein.setChecked(true);
-                        }else{
-                            bewusstsein.setChecked(false);
-                        }
+
+                           bewusstsein.setChecked(checkString(json_data.getString("bewusstsein")));
+                           atmung.setChecked(checkString(json_data.getString("atmung")));
+                           kreislauf.setChecked(checkString(json_data.getString("kreislauf")));
+                           sauerstoff.setChecked(checkString(json_data.getString("sauerstoff")));
+                           intubation.setChecked(checkString(json_data.getString("intubation")));
+                           beatmung.setChecked(checkString(json_data.getString("beatmung")));
+                           blutstillung.setChecked(checkString(json_data.getString("blutstillung")));
+                           pleuradrainage.setChecked(checkString(json_data.getString("pleuradrainage")));
+                           dringend.setChecked(checkString(json_data.getString("dringend")));
+
 
                     }
 
@@ -155,6 +171,14 @@ public class PatientActivity extends Activity {
         }
 
 
+    }
+
+    public boolean checkString(String s){
+        if(s.equals("1")){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public void onClickSave(View view){
@@ -237,7 +261,8 @@ public class PatientActivity extends Activity {
 
     public List<NameValuePair> getValueList(){
         Patient p1 = new Patient(scanResult,this.vorname.getText().toString(),this.nachname.getText().toString(),this.svnr.getText().toString(),this.gebdatum.getText().toString(),
-        this.krankenhaus.getText().toString(),this.transport.getText().toString(),this.prioritaet,this.bewusstsein.isChecked());
+        this.krankenhaus.getText().toString(),this.transport.getText().toString(),this.prioritaet,this.bewusstsein.isChecked(),this.atmung.isChecked(),
+         this.kreislauf.isChecked(),this.sauerstoff.isChecked(),this.intubation.isChecked(),this.beatmung.isChecked(),this.blutstillung.isChecked(),this.pleuradrainage.isChecked(), this.dringend.isChecked());
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", scanResult));
         nameValuePairs.add(new BasicNameValuePair("vorname", p1.getVorname()));
@@ -247,11 +272,15 @@ public class PatientActivity extends Activity {
         nameValuePairs.add(new BasicNameValuePair("krankenhaus", p1.getKrankenhaus()));
         nameValuePairs.add(new BasicNameValuePair("transport", p1.getTransport()));
         nameValuePairs.add(new BasicNameValuePair("prioritaet", p1.getPrioritaet()));
-        if(p1.getBewusstsein()) {
-            nameValuePairs.add(new BasicNameValuePair("bewusstsein", "TRUE"));
-        }else{
-            nameValuePairs.add(new BasicNameValuePair("bewusstsein", "FALSE"));
-        }
+        nameValuePairs.add(new BasicNameValuePair("bewusstsein", p1.getBewusstsein()));
+        nameValuePairs.add(new BasicNameValuePair("atmung", p1.getAtmung()));
+        nameValuePairs.add(new BasicNameValuePair("kreislauf", p1.getKreislauf()));
+        nameValuePairs.add(new BasicNameValuePair("sauerstoff", p1.getSauerstoff()));
+        nameValuePairs.add(new BasicNameValuePair("intubation", p1.getIntubation()));
+        nameValuePairs.add(new BasicNameValuePair("beatmung", p1.getBeatmung()));
+        nameValuePairs.add(new BasicNameValuePair("blutstillung", p1.getBlutstillung()));
+        nameValuePairs.add(new BasicNameValuePair("pleuradrainage", p1.getPleuradrainage()));
+        nameValuePairs.add(new BasicNameValuePair("dringend", p1.getDringend()));
         return nameValuePairs;
     }
 

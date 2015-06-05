@@ -235,13 +235,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_weight="0.87"
-                                android:layout_marginLeft="20dp">
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="10dp">
                                 <Button
                                     style="?android:attr/buttonStyleSmall"
                                     android:layout_width="71dp"
                                     android:layout_height="wrap_content"
                                     android:text="I"
-                                    android:id="@+id/triage1" />
+                                    android:id="@+id/triage1"
+                                    />
 
                                 <Button
                                     style="?android:attr/buttonStyleSmall"
@@ -290,6 +292,223 @@
                                 android:textOff="Bew -"
                                 android:background="#800000"
                                 android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Atmung:"
+                                android:id="@+id/textView10"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/atmung"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="Atm +"
+                                android:textOff="Atm -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Kreislauf:"
+                                android:id="@+id/textView11"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/kreislauf"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="Kreislauf +"
+                                android:textOff="Kreislauf -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sauerstoff:"
+                                android:id="@+id/textView12"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/sauerstoff"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="O2 +"
+                                android:textOff="O2 -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Intubation:"
+                                android:id="@+id/textView13"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/intubation"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="intubiert +"
+                                android:textOff="intubiert -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Beatmung:"
+                                android:id="@+id/textView14"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/beatmung"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="beatmet +"
+                                android:textOff="beatmet -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Blutstillung:"
+                                android:id="@+id/textView15"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/blutstillung"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="blutstillung +"
+                                android:textOff="blutstillung -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pleuradrainage:"
+                                android:id="@+id/textView16"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/pleuradrainage"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="pleura +"
+                                android:textOff="pleura -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:thumb="@drawable/thumb"
+                                android:track="@drawable/track"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="dringend:"
+                                android:id="@+id/textView17"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+
+                            <Switch
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/dringend"
+                                android:layout_gravity="center_vertical"
+                                android:showText="false"
+                                android:splitTrack="false"
+                                android:switchMinWidth="100dp"
+                                android:textOn="dringend +"
+                                android:textOff="dringend -"
+                                android:background="#800000"
+                                android:thumbTextPadding="30dp"
+                                android:layout_marginBottom="15dp"
                                 android:thumb="@drawable/thumb"
                                 android:track="@drawable/track"
                                 />

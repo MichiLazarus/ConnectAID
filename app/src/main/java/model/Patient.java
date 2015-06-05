@@ -13,11 +13,12 @@ public class Patient {
     private String krankenhaus;
     private String transport;
     private String prioritaet;
-    private boolean bewusstsein;
+    private boolean bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend;
 
-    public Patient(String id,String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String transport, String prioritaet, boolean bewusstsein) {
-        this.vorname = vorname;
+
+    public Patient(String id, String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String transport, String prioritaet, boolean bewusstsein, boolean atmung, boolean kreislauf, boolean sauerstoff, boolean intubation, boolean beatmung, boolean blutstillung, boolean pleuradrainage, boolean dringend) {
         this.id = id;
+        this.vorname = vorname;
         this.nachname = nachname;
         this.svnr = svnr;
         this.gebdatum = gebdatum;
@@ -25,6 +26,14 @@ public class Patient {
         this.transport = transport;
         this.prioritaet = prioritaet;
         this.bewusstsein = bewusstsein;
+        this.atmung = atmung;
+        this.kreislauf = kreislauf;
+        this.sauerstoff = sauerstoff;
+        this.intubation = intubation;
+        this.beatmung = beatmung;
+        this.blutstillung = blutstillung;
+        this.pleuradrainage = pleuradrainage;
+        this.dringend = dringend;
     }
 
     public String getId() {
@@ -91,11 +100,112 @@ public class Patient {
         this.prioritaet = prioritaet;
     }
 
-    public boolean getBewusstsein() {
-        return bewusstsein;
+    public String getBewusstsein() {
+        if(this.bewusstsein){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
     }
 
     public void setBewusstsein(boolean bewusstsein) {
         this.bewusstsein = bewusstsein;
+    }
+
+
+    public String getAtmung() {
+        if(this.atmung){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setAtmung(boolean atmung) {
+        this.atmung = atmung;
+    }
+
+    public String getKreislauf() {
+        if(this.kreislauf){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setKreislauf(boolean kreislauf) {
+        this.kreislauf = kreislauf;
+    }
+
+    public String getSauerstoff() {
+        if(this.sauerstoff){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setSauerstoff(boolean sauerstoff) {
+        this.sauerstoff = sauerstoff;
+    }
+
+    public String getIntubation() {
+        if(this.intubation){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setIntubation(boolean intubation) {
+        this.intubation = intubation;
+    }
+
+    public String getBeatmung() {
+        if(this.beatmung){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setBeatmung(boolean beatmung) {
+        this.beatmung = beatmung;
+    }
+
+    public String getBlutstillung() {
+        if(this.blutstillung){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setBlutstillung(boolean blutstillung) {
+        this.blutstillung = blutstillung;
+    }
+
+    public String getPleuradrainage() {
+        if(this.pleuradrainage){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setPleuradrainage(boolean pleuradrainage) {
+        this.pleuradrainage = pleuradrainage;
+    }
+
+    public String getDringend() {
+        if(this.dringend){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setDringend(boolean dringend) {
+        this.dringend = dringend;
     }
 }
