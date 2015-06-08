@@ -11,19 +11,17 @@ public class Patient {
     private String svnr;
     private String gebdatum;
     private String krankenhaus;
-    private String transport;
     private String prioritaet;
     private boolean bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend;
 
 
-    public Patient(String id, String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String transport, String prioritaet, boolean bewusstsein, boolean atmung, boolean kreislauf, boolean sauerstoff, boolean intubation, boolean beatmung, boolean blutstillung, boolean pleuradrainage, boolean dringend) {
+    public Patient(String id, String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String prioritaet, boolean bewusstsein, boolean atmung, boolean kreislauf, boolean sauerstoff, boolean intubation, boolean beatmung, boolean blutstillung, boolean pleuradrainage, boolean dringend) {
         this.id = id;
         this.vorname = vorname;
         this.nachname = nachname;
         this.svnr = svnr;
         this.gebdatum = gebdatum;
         this.krankenhaus = krankenhaus;
-        this.transport = transport;
         this.prioritaet = prioritaet;
         this.bewusstsein = bewusstsein;
         this.atmung = atmung;
@@ -82,14 +80,6 @@ public class Patient {
 
     public void setKrankenhaus(String krankenhaus) {
         this.krankenhaus = krankenhaus;
-    }
-
-    public String getTransport() {
-        return transport;
-    }
-
-    public void setTransport(String transport) {
-        this.transport = transport;
     }
 
     public String getPrioritaet() {

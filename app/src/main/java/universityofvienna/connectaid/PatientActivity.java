@@ -59,7 +59,6 @@ public class PatientActivity extends Activity {
     EditText svnr;
     EditText gebdatum;
     EditText krankenhaus;
-    EditText transport;
     Switch bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend;
     Button t1,t2,t3,t4;
     ListView listICD;
@@ -77,7 +76,6 @@ public class PatientActivity extends Activity {
          svnr = (EditText) findViewById(R.id.SVNR);
          gebdatum = (EditText) findViewById(R.id.Gebdatum);
          krankenhaus = (EditText) findViewById(R.id.Krankenhaus);
-         transport = (EditText) findViewById(R.id.transport);
          bewusstsein = (Switch) findViewById(R.id.bewusstsein);
          t1 = (Button) findViewById(R.id.triage1);
           t1.setOnClickListener(triageHandler);
@@ -133,7 +131,6 @@ public class PatientActivity extends Activity {
                         svnr.setText(json_data.getString("svnr"));
                         gebdatum.setText(json_data.getString("geburtsdatum"));
                         krankenhaus.setText(json_data.getString("krankenhausadresse"));
-                        transport.setText(json_data.getString("transport"));
                         prioritaet =  json_data.getString("prioritaetBehandlung");
                         switch(prioritaet.charAt(0)){
                              case('1'): t1.setBackgroundColor(Color.parseColor("#f44336"));
@@ -299,7 +296,7 @@ public class PatientActivity extends Activity {
 
     public List<NameValuePair> getValueList(){
         Patient p1 = new Patient(scanResult,this.vorname.getText().toString(),this.nachname.getText().toString(),this.svnr.getText().toString(),this.gebdatum.getText().toString(),
-        this.krankenhaus.getText().toString(),this.transport.getText().toString(),this.prioritaet,this.bewusstsein.isChecked(),this.atmung.isChecked(),
+        this.krankenhaus.getText().toString(),this.prioritaet,this.bewusstsein.isChecked(),this.atmung.isChecked(),
          this.kreislauf.isChecked(),this.sauerstoff.isChecked(),this.intubation.isChecked(),this.beatmung.isChecked(),this.blutstillung.isChecked(),this.pleuradrainage.isChecked(), this.dringend.isChecked());
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", scanResult));
@@ -308,7 +305,6 @@ public class PatientActivity extends Activity {
         nameValuePairs.add(new BasicNameValuePair("svnr", p1.getSvnr()));
         nameValuePairs.add(new BasicNameValuePair("gebdatum", p1.getGebdatum()));
         nameValuePairs.add(new BasicNameValuePair("krankenhaus", p1.getKrankenhaus()));
-        nameValuePairs.add(new BasicNameValuePair("transport", p1.getTransport()));
         nameValuePairs.add(new BasicNameValuePair("prioritaet", p1.getPrioritaet()));
         nameValuePairs.add(new BasicNameValuePair("bewusstsein", p1.getBewusstsein()));
         nameValuePairs.add(new BasicNameValuePair("atmung", p1.getAtmung()));
