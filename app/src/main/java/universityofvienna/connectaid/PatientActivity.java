@@ -7,12 +7,16 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -33,6 +37,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -57,7 +62,11 @@ public class PatientActivity extends Activity {
     EditText transport;
     Switch bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend;
     Button t1,t2,t3,t4;
+    ListView listICD;
+    EditText search;
     String prioritaet = "0";
+    ArrayList<String> icdCodes;
+    ArrayAdapter<String> dataAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +109,7 @@ public class PatientActivity extends Activity {
         spec.setContent(R.id.tab1);
         mytabhost.addTab(spec);
         mytabhost.addTab(mytabhost.newTabSpec("tab_behandlung").setIndicator("Behandlung").setContent(R.id.tab2));
-
+        mytabhost.addTab(mytabhost.newTabSpec("tab_ICD").setIndicator("ICD").setContent(R.id.tab3));
         for(int i=0;i<mytabhost.getTabWidget().getChildCount();i++)
         {
             TextView tv = (TextView) mytabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
@@ -123,7 +132,7 @@ public class PatientActivity extends Activity {
                         nachname.setText(json_data.getString("nachname"));
                         svnr.setText(json_data.getString("svnr"));
                         gebdatum.setText(json_data.getString("geburtsdatum"));
-                        krankenhaus.setText(json_data.getString("krankenhaus"));
+                        krankenhaus.setText(json_data.getString("krankenhausadresse"));
                         transport.setText(json_data.getString("transport"));
                         prioritaet =  json_data.getString("prioritaetBehandlung");
                         switch(prioritaet.charAt(0)){
@@ -151,7 +160,7 @@ public class PatientActivity extends Activity {
                            blutstillung.setChecked(checkString(json_data.getString("blutstillung")));
                            pleuradrainage.setChecked(checkString(json_data.getString("pleuradrainage")));
                            dringend.setChecked(checkString(json_data.getString("dringend")));
-
+                           fillList();
 
                     }
 
@@ -170,6 +179,35 @@ public class PatientActivity extends Activity {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void fillList(){
+       icdCodes = new ArrayList<String>();
+       icdCodes.add("Hallo World");
+       icdCodes.add("World");
+
+
+        dataAdapter = new ArrayAdapter<String>(this,R.layout.icdcodelist,icdCodes);
+        listICD = (ListView) findViewById(R.id.listviewICD);
+        listICD.setAdapter(dataAdapter);
+        search = (EditText) findViewById(R.id.searchicd);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                          dataAdapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 
