@@ -183,7 +183,25 @@ public class PatientActivity extends Activity {
        icdCodes = new ArrayList<String>();
        icdCodes.add("Hallo World");
        icdCodes.add("World");
-
+       List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+       nameValuePairs.add(new BasicNameValuePair("id", scanResult));
+       phpfile = "https://81.217.54.146/showICD.php";
+        try {
+            System.out.println("SHowICD abfrage");
+            String result = new PatientData(PatientActivity.this).execute(nameValuePairs).get();
+            System.out.println(result);
+            JSONArray jArray = new JSONArray(result);
+            for (int i = 0; i < jArray.length(); i++) {
+                JSONObject json_data = jArray.getJSONObject(i);
+                icdCodes.add(json_data.getString("code")+ " "+ json_data.getString("krankheit"));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         dataAdapter = new ArrayAdapter<String>(this,R.layout.icdcodelist,icdCodes);
         listICD = (ListView) findViewById(R.id.listviewICD);
