@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -73,6 +74,7 @@ public class PatientActivity extends Activity {
     ArrayAdapter<String> dataAdapter;
     ArrayAdapter<String> selectedAdapter;
     ArrayList<String> positions = new ArrayList<String>();
+    ArrayList<String> icdKeys = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,6 +215,7 @@ public class PatientActivity extends Activity {
             JSONArray jArray = new JSONArray(result);
             for (int i = 0; i < jArray.length(); i++) {
                 JSONObject json_data = jArray.getJSONObject(i);
+                icdKeys.add(json_data.getString("id"));
                 icdCodes.add(json_data.getString("code")+ " "+ json_data.getString("krankheit"));
             }
         } catch (InterruptedException e) {
@@ -228,6 +231,7 @@ public class PatientActivity extends Activity {
         listICD = (ListView) findViewById(R.id.listviewICD);
         listSelectedICD = (ListView) findViewById(R.id.listviewSelectedICD);
         listSelectedICD.setAdapter(selectedAdapter);
+        listSelectedICD.setEmptyView(findViewById(R.id.empty));
         listICD.setAdapter(dataAdapter);
         listICD.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -235,7 +239,7 @@ public class PatientActivity extends Activity {
                 view.setSelected(true);
                 if(!selectedICDS.contains(icdCodes.get(position))) {
                     selectedICDS.add(icdCodes.get(position));
-                    positions.add(Integer.toString(position+1));
+                    positions.add(icdKeys.get(position));
                 }
                 selectedAdapter.notifyDataSetChanged();
             }
@@ -245,7 +249,7 @@ public class PatientActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
-//                positions.remove(positions.indexOf(icdCodes.indexOf(selectedICDS.get(position))));
+                positions.remove(position);
                 selectedICDS.remove(selectedICDS.get(position));
 
                 selectedAdapter.notifyDataSetChanged();

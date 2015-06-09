@@ -517,7 +517,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:choiceMode="multipleChoice"
+                            android:divider="#ffffffff"
+                            android:dividerHeight="1dp"
                             android:id="@+id/listviewSelectedICD" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/empty"
+                            android:text ="Keine Einträge"
+                            android:textColor="#ffffffff"
+                            style="@android:style/TextAppearance.Large"
+                            android:gravity="center"
+                        />
 
                     </LinearLayout>
 
@@ -542,12 +554,15 @@
                             android:textColor="#ffffffff"
                             android:textColorHint="#ffffffff"
                             android:layout_gravity="center_horizontal"
+                            android:hint="search"
                             />
 
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:choiceMode="multipleChoice"
+                            android:divider="#ffffffff"
+                            android:dividerHeight="1dp"
                             android:id="@+id/listviewICD" />
 
                     </LinearLayout>
