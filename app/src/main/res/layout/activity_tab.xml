@@ -489,19 +489,8 @@
                                 android:track="@drawable/track"
                                 />
 
-
-
                         </LinearLayout>
-
                     </ScrollView>
-
-
-                    <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:choiceMode="multipleChoice"
-                        android:id="@+id/listviewSelectedICD" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -511,6 +500,30 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/showicd"
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:text="Select ICDs"
+                            android:id="@+id/button1"
+                            android:layout_marginBottom="20dp"
+                            android:onClick="onClickICD"/>
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:choiceMode="multipleChoice"
+                            android:id="@+id/listviewSelectedICD" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/seticd"
+                        android:visibility="gone"
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent">
@@ -536,6 +549,7 @@
                             android:layout_height="match_parent"
                             android:choiceMode="multipleChoice"
                             android:id="@+id/listviewICD" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -551,5 +565,13 @@
         android:id="@+id/button"
         android:layout_marginBottom="20dp"
         android:onClick="onClickSave"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:visibility="gone"
+        android:text="Zurück"
+        android:id="@+id/back"
+        android:layout_marginBottom="20dp"
+        android:onClick="onClickBack"/>
 
 </LinearLayout>

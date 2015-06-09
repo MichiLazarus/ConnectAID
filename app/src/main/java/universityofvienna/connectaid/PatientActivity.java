@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TabHost;
@@ -61,10 +62,11 @@ public class PatientActivity extends Activity {
     EditText gebdatum;
     EditText krankenhaus;
     Switch bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend;
-    Button t1,t2,t3,t4;
+    Button t1,t2,t3,t4,speichern,back;
     ListView listICD;
     ListView listSelectedICD;
     EditText search;
+    LinearLayout showicd,seticd;
     String prioritaet = "0";
     ArrayList<String> icdCodes;
     ArrayList<String> selectedICDS = new ArrayList<String>();
@@ -102,6 +104,10 @@ public class PatientActivity extends Activity {
          blutstillung = (Switch) findViewById(R.id.blutstillung);
          pleuradrainage = (Switch) findViewById(R.id.pleuradrainage);
          dringend = (Switch) findViewById(R.id.dringend);
+         seticd = (LinearLayout) findViewById(R.id.seticd);
+         showicd = (LinearLayout) findViewById(R.id.showicd);
+         speichern = (Button) findViewById(R.id.button);
+         back = (Button) findViewById(R.id.back);
 
         mytabhost = (TabHost) findViewById(R.id.tabHost);
         mytabhost.setup();
@@ -161,7 +167,6 @@ public class PatientActivity extends Activity {
                            blutstillung.setChecked(checkString(json_data.getString("blutstillung")));
                            pleuradrainage.setChecked(checkString(json_data.getString("pleuradrainage")));
                            dringend.setChecked(checkString(json_data.getString("dringend")));
-                           fillList();
 
                     }
 
@@ -289,6 +294,22 @@ public class PatientActivity extends Activity {
             }
         }
 
+    }
+
+
+    public void onClickICD(View view){
+        fillList();
+        showicd.setVisibility(View.GONE);
+        seticd.setVisibility(View.VISIBLE);
+        speichern.setVisibility(View.GONE);
+        back.setVisibility(View.VISIBLE);
+    }
+
+    public void onClickBack(View view){
+        showicd.setVisibility(View.VISIBLE);
+        seticd.setVisibility(View.GONE);
+        speichern.setVisibility(View.VISIBLE);
+        back.setVisibility(View.GONE);
     }
 
     View.OnClickListener triageHandler = new View.OnClickListener() {
