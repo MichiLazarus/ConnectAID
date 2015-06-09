@@ -180,6 +180,7 @@ public class PatientActivity extends Activity {
                         for (int i = 0; i < jArray1.length(); i++) {
                             JSONObject json_data1 = jArray1.getJSONObject(i);
                             selectedICDS.add(json_data1.getString("code") + " " + json_data1.getString("krankheit"));
+                            positions.add(json_data1.getString("id"));
                         }
                         selectedAdapter.notifyDataSetChanged();
                     }
@@ -207,7 +208,6 @@ public class PatientActivity extends Activity {
        nameValuePairs.add(new BasicNameValuePair("id", scanResult));
        phpfile = "https://81.217.54.146/showICD.php";
         try {
-            System.out.println("SHowICD abfrage");
             String result = new PatientData(PatientActivity.this).execute(nameValuePairs).get();
             System.out.println(result);
             JSONArray jArray = new JSONArray(result);
