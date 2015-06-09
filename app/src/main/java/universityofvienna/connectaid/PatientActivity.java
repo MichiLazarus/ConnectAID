@@ -128,6 +128,7 @@ public class PatientActivity extends Activity {
 
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", scanResult));
+        fillList();
         try {
             String result = new PatientData(PatientActivity.this).execute(nameValuePairs).get();
 
@@ -171,6 +172,17 @@ public class PatientActivity extends Activity {
 
                     }
 
+                    phpfile="https://81.217.54.146/showICDpatient.php";
+                    result = new PatientData(PatientActivity.this).execute(nameValuePairs).get();
+
+                    if(!result.equals("failed")){
+                        JSONArray jArray1 = new JSONArray(result);
+                        for (int i = 0; i < jArray1.length(); i++) {
+                            JSONObject json_data1 = jArray1.getJSONObject(i);
+                            selectedICDS.add(json_data1.getString("code") + " " + json_data1.getString("krankheit"));
+                        }
+                        selectedAdapter.notifyDataSetChanged();
+                    }
                 } catch (JSONException e) {
                     Log.e("log_tag", "Error parsing data " + e.toString());
                 }
@@ -233,7 +245,7 @@ public class PatientActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
-
+//                positions.remove(positions.indexOf(icdCodes.indexOf(selectedICDS.get(position))));
                 selectedICDS.remove(selectedICDS.get(position));
 
                 selectedAdapter.notifyDataSetChanged();
@@ -311,7 +323,7 @@ public class PatientActivity extends Activity {
 
 
     public void onClickICD(View view){
-        fillList();
+        //fillList();
         showicd.setVisibility(View.GONE);
         seticd.setVisibility(View.VISIBLE);
         speichern.setVisibility(View.GONE);
