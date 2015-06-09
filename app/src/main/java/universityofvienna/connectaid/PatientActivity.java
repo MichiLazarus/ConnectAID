@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,10 +63,13 @@ public class PatientActivity extends Activity {
     Switch bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend;
     Button t1,t2,t3,t4;
     ListView listICD;
+    ListView listSelectedICD;
     EditText search;
     String prioritaet = "0";
     ArrayList<String> icdCodes;
+    ArrayList<String> selectedICDS = new ArrayList<String>();
     ArrayAdapter<String> dataAdapter;
+    ArrayAdapter<String> selectedAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,8 +208,19 @@ public class PatientActivity extends Activity {
         }
 
         dataAdapter = new ArrayAdapter<String>(this,R.layout.icdcodelist,icdCodes);
+        selectedAdapter = new ArrayAdapter<String>(this,R.layout.icdcodelist,selectedICDS);
         listICD = (ListView) findViewById(R.id.listviewICD);
+        listSelectedICD = (ListView) findViewById(R.id.listviewSelectedICD);
+        listSelectedICD.setAdapter(selectedAdapter);
         listICD.setAdapter(dataAdapter);
+        listICD.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+                selectedICDS.add(icdCodes.get(position));
+                selectedAdapter.notifyDataSetChanged();
+            }
+        });
         search = (EditText) findViewById(R.id.searchicd);
         search.addTextChangedListener(new TextWatcher() {
             @Override

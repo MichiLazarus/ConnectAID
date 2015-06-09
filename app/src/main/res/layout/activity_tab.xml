@@ -490,9 +490,17 @@
                                 />
 
 
+
                         </LinearLayout>
+
                     </ScrollView>
 
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:choiceMode="multipleChoice"
+                        android:id="@+id/listviewSelectedICD" />
 
                 </LinearLayout>
 
@@ -526,8 +534,7 @@
                         <ListView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:choiceMode="singleChoice"
-                            android:listSelector="#800000"
+                            android:choiceMode="multipleChoice"
                             android:id="@+id/listviewICD" />
                     </LinearLayout>
 
