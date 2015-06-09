@@ -72,6 +72,7 @@ public class PatientActivity extends Activity {
     ArrayList<String> selectedICDS = new ArrayList<String>();
     ArrayAdapter<String> dataAdapter;
     ArrayAdapter<String> selectedAdapter;
+    ArrayList<String> positions = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,8 +191,6 @@ public class PatientActivity extends Activity {
 
     public void fillList(){
        icdCodes = new ArrayList<String>();
-       icdCodes.add("Hallo World");
-       icdCodes.add("World");
        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
        nameValuePairs.add(new BasicNameValuePair("id", scanResult));
        phpfile = "https://81.217.54.146/showICD.php";
@@ -222,7 +221,21 @@ public class PatientActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
-                selectedICDS.add(icdCodes.get(position));
+                if(!selectedICDS.contains(icdCodes.get(position))) {
+                    selectedICDS.add(icdCodes.get(position));
+                    positions.add(Integer.toString(position+1));
+                }
+                selectedAdapter.notifyDataSetChanged();
+            }
+        });
+
+        listSelectedICD.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+
+                selectedICDS.remove(selectedICDS.get(position));
+
                 selectedAdapter.notifyDataSetChanged();
             }
         });
@@ -369,6 +382,9 @@ public class PatientActivity extends Activity {
         nameValuePairs.add(new BasicNameValuePair("blutstillung", p1.getBlutstillung()));
         nameValuePairs.add(new BasicNameValuePair("pleuradrainage", p1.getPleuradrainage()));
         nameValuePairs.add(new BasicNameValuePair("dringend", p1.getDringend()));
+        for(String s : positions){
+            nameValuePairs.add(new BasicNameValuePair("positions[]",s));
+        }
         return nameValuePairs;
     }
 
