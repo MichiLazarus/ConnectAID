@@ -12,10 +12,11 @@ public class Patient {
     private String gebdatum;
     private String krankenhaus;
     private String prioritaet;
-    private boolean bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend;
+    private String medikamente, benachrichtigung, notizen;
+    private boolean bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend, verstorben;
 
 
-    public Patient(String id, String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String prioritaet, boolean bewusstsein, boolean atmung, boolean kreislauf, boolean sauerstoff, boolean intubation, boolean beatmung, boolean blutstillung, boolean pleuradrainage, boolean dringend) {
+    public Patient(String id, String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String prioritaet, boolean bewusstsein, boolean atmung, boolean kreislauf, boolean sauerstoff, boolean intubation, boolean beatmung, boolean blutstillung, boolean pleuradrainage, boolean dringend, boolean verstorben, String medikamente, String benachrichtigung, String notizen) {
         this.id = id;
         this.vorname = vorname;
         this.nachname = nachname;
@@ -32,6 +33,10 @@ public class Patient {
         this.blutstillung = blutstillung;
         this.pleuradrainage = pleuradrainage;
         this.dringend = dringend;
+        this.verstorben = verstorben;
+        this.medikamente = medikamente;
+        this.benachrichtigung = benachrichtigung;
+        this.notizen = notizen;
     }
 
     public String getId() {
@@ -80,6 +85,30 @@ public class Patient {
 
     public void setKrankenhaus(String krankenhaus) {
         this.krankenhaus = krankenhaus;
+    }
+
+    public String getMedikamente() {
+        return medikamente;
+    }
+
+    public void setMedikamente(String medikamente) {
+        this.medikamente = medikamente;
+    }
+
+    public String getBenachrichtigung() {
+        return benachrichtigung;
+    }
+
+    public void setBenachrichtigung(String benachrichtigung) {
+        this.benachrichtigung = benachrichtigung;
+    }
+
+    public String getNotizen() {
+        return notizen;
+    }
+
+    public void setNotizen(String notizen) {
+        this.notizen = notizen;
     }
 
     public String getPrioritaet() {
@@ -198,4 +227,17 @@ public class Patient {
     public void setDringend(boolean dringend) {
         this.dringend = dringend;
     }
+
+    public String getVerstorben() {
+        if(this.verstorben){
+            return "TRUE";
+        }else{
+            return "FALSE";
+        }
+    }
+
+    public void setVerstorben(boolean verstorben) {
+        this.verstorben = verstorben;
+    }
 }
+

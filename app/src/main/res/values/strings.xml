@@ -9,5 +9,6 @@
     <string name="password">password</string>
     <string name="Login">Login</string>
     <string name="action_refresh">action_refresh</string>
+    <string name="einsatz_prompt">Einsatz auswählen</string>
 
 </resources>
