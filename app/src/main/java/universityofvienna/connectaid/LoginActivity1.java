@@ -185,7 +185,7 @@ public class LoginActivity1 extends Activity {
                  JSONObject json_data = jArray.getJSONObject(i);
                  Log.i("log_tag", "kennung: " + json_data.getInt("kennung"));
                  ergebnis = json_data.getString("nachname");
-
+                 MainActivity.setHelferID(json_data.getString("kennung"));
              }
 
          } catch (JSONException e) {

@@ -1,9 +1,11 @@
 package universityofvienna.connectaid;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +26,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +37,16 @@ import qrreader.IntentResult;
 import session.SessionManager;
 
 
+
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
+    private TextView status;
     private TextView txtName;
     private TextView txtEmail;
     private Button btnLogout;
     private Button btnScan;
     private ListView listPatient;
+    private TextView noEntries;
     private SessionManager session;
     private ArrayList<String> einsatzIDs = new ArrayList<String>();
     private ArrayList<String> einsaetze = new ArrayList<String>();
@@ -48,15 +54,18 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private ArrayList<String> patientenIDs = new ArrayList<String>();
     private ArrayAdapter<String> patientAdapter;
     private Spinner einsatzSelect;
-    private String einsatzID;
+    private String einsatzID = null;
+    protected static String helferID;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        status = (TextView) findViewById(R.id.status);
+        noEntries = (TextView) findViewById(R.id.noEntry);
         fillList();
-
-
+        runThread();
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnScan = (Button) findViewById(R.id.btnScan);
         // session manager
@@ -81,27 +90,34 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void fillList(){
         einsatzIDs.clear();
         einsaetze.clear();
+        einsatzSelect = (Spinner) findViewById(R.id.einsaetze);
         PatientActivity.phpfile = "https://81.217.54.146/showAktEinsaetze.php";
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("id", "0"));
+        nameValuePairs.add(new BasicNameValuePair("helferId", helferID));
+
         try {
             String result = new PatientData(MainActivity.this).execute(nameValuePairs).get();
             System.out.println(result);
-            JSONArray jArray = new JSONArray(result);
-            for (int i = 0; i < jArray.length(); i++) {
-                JSONObject json_data = jArray.getJSONObject(i);
-                einsatzIDs.add(json_data.getString("id"));
-                einsaetze.add(json_data.getString("strasse")+ " "+ json_data.getString("strasseNr")+ " \n "+ json_data.getString("plz") + " " + json_data.getString("land"));
+            if (!result.equals("failed")) {
+                JSONArray jArray = new JSONArray(result);
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+                    einsatzIDs.add(json_data.getString("id"));
+                    einsaetze.add(json_data.getString("strasse") + " " + json_data.getString("strasseNr") + " \n " + json_data.getString("plz") + " " + json_data.getString("land"));
+                }
+            }else{
+                einsatzSelect.setVisibility(View.GONE);
+                noEntries.setVisibility(View.VISIBLE);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }catch(ExecutionException e){
+                e.printStackTrace();
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
 
-        einsatzSelect = (Spinner) findViewById(R.id.einsaetze);
+
         einsatzSelect.setOnItemSelectedListener(this);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,R.layout.spinnereinsatz, einsaetze);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -156,14 +172,25 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     public void onClickPatient(View view){
-        setContentView(R.layout.select_patient);
-        fillPatientList();
-
+        if(einsatzID != null) {
+            setContentView(R.layout.select_patient);
+            fillPatientList();
+        }else{
+            Toast.makeText(this,
+                    "Kein Einsatz ausgewählt", Toast.LENGTH_LONG)
+                    .show();
+        }
     }
 
     public void onClick(View view){
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.initiateScan();
+        if(einsatzID != null) {
+            IntentIntegrator integrator = new IntentIntegrator(this);
+            integrator.initiateScan();
+        }else{
+            Toast.makeText(this,
+                    "Kein Einsatz ausgewählt", Toast.LENGTH_LONG)
+                    .show();
+        }
 
     }
 
@@ -221,5 +248,61 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void runThread() {
+
+        new Thread() {
+            public void run() {
+                PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
+                wl.acquire();
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("helferId", helferID));
+                String ergebnis = null;
+                while (true) {
+                    PatientActivity.setPhpfile("https://81.217.54.146/getState.php");
+                    try {
+                       String result = new PatientData(MainActivity.this).execute(nameValuePairs).get();
+                        System.out.println(result);
+                        if (!result.equals("failed")) {
+                            JSONArray jArray = new JSONArray(result);
+                            for (int i = 0; i < jArray.length(); i++) {
+                                JSONObject json_data = jArray.getJSONObject(i);
+                                //state.setText(json_data.getString("status"));
+                                ergebnis = json_data.getString("status");
+                            }
+                        }
+                    }catch(JSONException e){
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        final String state = ergebnis;
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                              status.setText(state);
+                            }
+                        });
+                        Thread.sleep(60000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+    }
+
+    public static String getHelferID() {
+        return helferID;
+    }
+
+    public static void setHelferID(String helferID) {
+        MainActivity.helferID = helferID;
     }
 }
