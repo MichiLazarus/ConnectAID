@@ -197,9 +197,39 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void onClickBack(View view){
         setContentView(R.layout.activity_main);
         fillList();
-
     }
 
+    public void onClickState(View view) {
+        String newStatus;
+        if (einsatzID == null) {
+            newStatus = "Einsatz beendet";
+        } else {
+            newStatus = "Zu Einsatzort";
+        }
+
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        System.out.println("helferID: " + MainActivity.getHelferID());
+        System.out.println("Status: " + newStatus);
+
+        nameValuePairs.add(new BasicNameValuePair("helferId", MainActivity.getHelferID()));
+        nameValuePairs.add(new BasicNameValuePair("status", newStatus));
+        PatientActivity.setPhpfile("https://81.217.54.146/updateState.php");
+        try {
+            String result = new PatientData(MainActivity.this).execute(nameValuePairs).get();
+            System.out.println("#######"+result);
+            if (result.equals("success")) {
+                Toast.makeText(this,
+                        "Status wurde geändert", Toast.LENGTH_LONG)
+                        .show();
+                status.setText(newStatus);
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
@@ -261,9 +291,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 nameValuePairs.add(new BasicNameValuePair("helferId", helferID));
                 String ergebnis = null;
                 while (true) {
-                    PatientActivity.setPhpfile("https://81.217.54.146/getState.php");
+
                     try {
-                       String result = new PatientData(MainActivity.this).execute(nameValuePairs).get();
+                       String result = new CheckState(MainActivity.this).execute(nameValuePairs).get();
                         System.out.println(result);
                         if (!result.equals("failed")) {
                             JSONArray jArray = new JSONArray(result);
