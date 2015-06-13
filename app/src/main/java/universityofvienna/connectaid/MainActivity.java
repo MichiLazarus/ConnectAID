@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,11 +38,15 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private TextView txtEmail;
     private Button btnLogout;
     private Button btnScan;
+    private ListView listPatient;
     private SessionManager session;
     private ArrayList<String> einsatzIDs = new ArrayList<String>();
     private ArrayList<String> einsaetze = new ArrayList<String>();
+    private ArrayList<String> patienten = new ArrayList<String>();
+    private ArrayList<String> patientenIDs = new ArrayList<String>();
+    private ArrayAdapter<String> patientAdapter;
     private Spinner einsatzSelect;
-
+    private String einsatzID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +75,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     public void fillList(){
-
+        einsatzIDs.clear();
+        einsaetze.clear();
         PatientActivity.phpfile = "https://81.217.54.146/showAktEinsaetze.php";
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("id", "0"));
@@ -98,12 +104,65 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         einsatzSelect.setAdapter(dataAdapter);
     }
 
+    public void fillPatientList(){
+        patientenIDs.clear();
+        patienten.clear();
+        PatientActivity.phpfile = "https://81.217.54.146/showPatientenEinsatz.php";
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("einsatzId", einsatzID));
+        try {
+            String result = new PatientData(MainActivity.this).execute(nameValuePairs).get();
+            System.out.println(result);
+            JSONArray jArray = new JSONArray(result);
+            for (int i = 0; i < jArray.length(); i++) {
+                JSONObject json_data = jArray.getJSONObject(i);
+                patientenIDs.add(json_data.getString("id"));
+                patienten.add("ID: "+json_data.getString("id")+"\n"+json_data.getString("vorname") + " " + json_data.getString("nachname") + " SVNR: " + json_data.getString("svnr"));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        patientAdapter = new ArrayAdapter<String>(this,R.layout.patientlist,patienten);
+        listPatient = (ListView) findViewById(R.id.listviewSelectPatient);
+        listPatient.setAdapter(patientAdapter);
+        listPatient.setEmptyView(findViewById(R.id.emptyPatient));
+        listPatient.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+                PatientActivity.scanResult = patientenIDs.get(position);
+                showPatient();
+            }
+        });
+    }
+
+    public void showPatient(){
+        Intent nextScreen = new Intent(this,PatientActivity.class);
+        this.startActivity(nextScreen);
+    }
+
+    public void onClickPatient(View view){
+        setContentView(R.layout.select_patient);
+        fillPatientList();
+
+    }
+
     public void onClick(View view){
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.initiateScan();
 
     }
 
+    public void onClickBack(View view){
+        setContentView(R.layout.activity_main);
+        fillList();
+
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
@@ -142,10 +201,12 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item = parent.getItemAtPosition(position).toString();
+        //String item = parent.getItemAtPosition(position).toString();
+        einsatzID = einsatzIDs.get(position);
+        PatientActivity.einsatzID = einsatzID;
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
 
     @Override

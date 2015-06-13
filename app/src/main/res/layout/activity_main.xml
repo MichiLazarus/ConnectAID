@@ -48,6 +48,17 @@
             android:background="@android:drawable/btn_dropdown"
             />
 
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Patienten anzeigen"
+            android:id="@+id/btnshowPatienten"
+            android:onClick="onClickPatient"
+            />
+
+
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
