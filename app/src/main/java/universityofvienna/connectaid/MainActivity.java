@@ -2,6 +2,7 @@ package universityofvienna.connectaid;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -53,6 +55,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         fillList();
+
+
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnScan = (Button) findViewById(R.id.btnScan);
         // session manager
@@ -117,7 +121,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             for (int i = 0; i < jArray.length(); i++) {
                 JSONObject json_data = jArray.getJSONObject(i);
                 patientenIDs.add(json_data.getString("id"));
-                patienten.add("ID: "+json_data.getString("id")+"\n"+json_data.getString("vorname") + " " + json_data.getString("nachname") + " SVNR: " + json_data.getString("svnr"));
+                if(json_data.getString("svnr").equals("0")){
+                    patienten.add("ID: "+json_data.getString("id")+"\n"+json_data.getString("vorname") + " " + json_data.getString("nachname"));
+                }else {
+                    patienten.add("ID: " + json_data.getString("id") + "\n" + json_data.getString("vorname") + " " + json_data.getString("nachname") + " SVNR: " + json_data.getString("svnr"));
+                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -144,6 +152,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void showPatient(){
         Intent nextScreen = new Intent(this,PatientActivity.class);
         this.startActivity(nextScreen);
+
     }
 
     public void onClickPatient(View view){

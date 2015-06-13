@@ -7,6 +7,7 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -14,12 +15,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/selectEin"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         android:layout_weight=".3"
         android:gravity="center"
         android:orientation="vertical"
+        android:visibility="visible"
         android:weightSum="1">
 
 
@@ -78,8 +81,6 @@
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="15dp" />
-
-
 
 
     </LinearLayout>
