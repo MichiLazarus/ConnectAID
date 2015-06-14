@@ -4,6 +4,6 @@
 
 
     <size android:height="40dp"  />
-    <gradient android:height="40dp" android:startColor="#008800" android:endColor="#008800"/>
+    <gradient android:height="40dp" android:startColor="#d50000" android:endColor="#d50000"/>
 
 </shape>
