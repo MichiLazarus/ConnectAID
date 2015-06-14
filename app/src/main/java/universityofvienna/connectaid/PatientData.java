@@ -66,10 +66,7 @@ public class PatientData extends AsyncTask<List,String,String> {
 
             System.out.println(result);
             result = result.replaceAll("\\n","");
-            result = result.replaceAll(" ","");
-            if("failed".equals(result)){
-                return "failed";
-            }
+            result = result.trim();
 
 
         } catch (Exception e) {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,6 +41,8 @@ import session.SessionManager;
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
+    private static boolean threadStarted = false;
+    private String statusText;
     private TextView status;
     private TextView txtName;
     private TextView txtEmail;
@@ -65,7 +68,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         status = (TextView) findViewById(R.id.status);
         noEntries = (TextView) findViewById(R.id.noEntry);
         fillList();
-        runThread();
+
+            runThread();
+
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnScan = (Button) findViewById(R.id.btnScan);
         // session manager
@@ -78,13 +83,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
 
         // Logout button click event
-        btnLogout.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                logoutUser();
-            }
-        });
     }
 
     public void fillList(){
@@ -169,6 +168,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         Intent nextScreen = new Intent(this,PatientActivity.class);
         this.startActivity(nextScreen);
 
+
     }
 
     public void onClickPatient(View view){
@@ -197,6 +197,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void onClickBack(View view){
         setContentView(R.layout.activity_main);
         fillList();
+        status = (TextView) findViewById(R.id.status);
+        status.setText(statusText);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
     }
 
     public void onClickState(View view) {
@@ -256,7 +259,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
      * Logging out the user. Will set isLoggedIn flag to false in shared
      * preferences Clears the user data from sqlite users table
      * */
-    private void logoutUser() {
+    public void logoutUser(View view) {
         session.setLogin(false);
 
         // Launching the login activity
@@ -281,11 +284,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     private void runThread() {
-
+        threadStarted = true;
         new Thread() {
+            int i = 0;
             public void run() {
                 PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
+
                 wl.acquire();
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("helferId", helferID));
@@ -302,6 +307,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                                 //state.setText(json_data.getString("status"));
                                 ergebnis = json_data.getString("status");
                             }
+                            statusText = ergebnis;
                         }
                     }catch(JSONException e){
                         e.printStackTrace();
@@ -311,15 +317,20 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                         e.printStackTrace();
                     }
                     try {
+                        final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         final String state = ergebnis;
                         runOnUiThread(new Runnable() {
 
                             @Override
                             public void run() {
-                              status.setText(state);
+                              if(!status.getText().toString().trim().equals(state.trim())) {
+                                  status.setText(state);
+                                  // Vibrate for 500 milliseconds
+                                  v.vibrate(1000);
+                              }
                             }
                         });
-                        Thread.sleep(60000);
+                        Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

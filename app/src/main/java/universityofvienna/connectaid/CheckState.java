@@ -66,7 +66,7 @@ public class CheckState extends AsyncTask<List,String,String> {
 
             System.out.println(result);
             result = result.replaceAll("\\n","");
-            result = result.replaceAll(" ","");
+            result = result.trim();
             if("failed".equals(result)){
                 return "failed";
             }

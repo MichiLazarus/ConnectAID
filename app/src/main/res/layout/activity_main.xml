@@ -121,7 +121,8 @@
                 android:text="LOGOUT"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:onClick="logoutUser"/>
 
 
         </LinearLayout>
