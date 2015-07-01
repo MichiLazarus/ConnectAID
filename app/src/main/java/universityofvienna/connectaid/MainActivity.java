@@ -41,7 +41,7 @@ import session.SessionManager;
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
 
-    private static boolean threadStarted = false;
+    private static boolean threadAlive = false;
     private String statusText;
     private TextView status;
     private TextView txtName;
@@ -260,8 +260,12 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
      * preferences Clears the user data from sqlite users table
      * */
     public void logoutUser(View view) {
-        session.setLogin(false);
+        logout();
+    }
 
+    public void logout(){
+        session.setLogin(false);
+        threadAlive=false;
         // Launching the login activity
         Intent intent = new Intent(MainActivity.this, LoginActivity1.class);
         startActivity(intent);
@@ -284,7 +288,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     private void runThread() {
-        threadStarted = true;
+        threadAlive = true;
         new Thread() {
             int i = 0;
             public void run() {
@@ -292,10 +296,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My Tag");
 
                 wl.acquire();
+
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("helferId", helferID));
                 String ergebnis = null;
-                while (true) {
+                while (threadAlive) {
 
                     try {
                        String result = new CheckState(MainActivity.this).execute(nameValuePairs).get();
@@ -319,6 +324,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                     try {
                         final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         final String state = ergebnis;
+                        if(state == null){
+                            logout();
+                            break;
+                        }
                         runOnUiThread(new Runnable() {
 
                             @Override
@@ -335,6 +344,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                         e.printStackTrace();
                     }
                 }
+                wl.release();
             }
         }.start();
     }
@@ -346,4 +356,18 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public static void setHelferID(String helferID) {
         MainActivity.helferID = helferID;
     }
-}
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+
+    }
