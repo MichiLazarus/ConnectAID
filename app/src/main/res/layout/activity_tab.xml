@@ -68,6 +68,7 @@
                                 android:textColor="#ffffffff"
                                 android:textColorHint="#ffffffff"
                                 android:layout_gravity="center_horizontal"
+                                android:imeOptions="actionDone"
                                 />
 
                             <TextView
@@ -93,6 +94,7 @@
                                 android:textColor="#ffffffff"
                                 android:textColorHint="#ffffffff"
                                 android:layout_gravity="center_horizontal"
+                                android:imeOptions="actionDone"
                                 />
 
                             <TextView
@@ -118,6 +120,7 @@
                                 android:textColor="#ffffffff"
                                 android:textColorHint="#ffffffff"
                                 android:layout_gravity="center_horizontal"
+                                android:imeOptions="actionDone"
                                 />
 
                             <TextView
@@ -129,11 +132,135 @@
                                 android:textColor="#ffffffff"
                                 android:textSize="17dp" />
 
-                            <DatePicker
-                                android:id="@+id/dpResult"
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_weight="0.87"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="10dp">
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:calendarViewShown="false"/>
+                                android:text="Tag:"
+                                android:id="@+id/textView56"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:id="@+id/day"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="20dp"
+                                android:gravity="center"
+                                android:minHeight="20dp"
+                                android:minWidth="40dp"
+                                android:background="#800000"
+                                android:textColor="#ffffffff"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Monat:"
+                                android:id="@+id/textView57"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/monat"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="20dp"
+                                android:gravity="center"
+                                android:minWidth="40dp"
+                                android:textColor="#ffffffff"
+                                android:background="#800000"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Jahr:"
+                                android:id="@+id/textView58"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:id="@+id/jahr"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:minWidth="60dp"
+                                android:background="#800000"
+                                android:textColor="#ffffffff"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Benachrichtigung:"
+                                android:id="@+id/textView20"
+                                android:layout_marginTop="25dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+                            <EditText
+                                android:id="@+id/benachrichtigung"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="20dp"
+                                android:background="#800000"
+                                android:inputType="textMultiLine"
+                                android:maxLines="3"
+                                android:padding="10dp"
+                                android:layout_marginTop="10dp"
+                                android:textSize="20sp"
+                                android:textColor="#ffffffff"
+                                android:textColorHint="#ffffffff"
+                                android:layout_gravity="center_horizontal"
+                                android:imeOptions="actionDone"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Notizen:"
+                                android:id="@+id/textView21"
+                                android:layout_marginTop="5dp"
+                                android:textColor="#ffffffff"
+                                android:textSize="17dp" />
+
+                            <EditText
+                                android:id="@+id/notizen"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="20dp"
+                                android:background="#800000"
+                                android:inputType="textMultiLine"
+                                android:maxLines="10"
+                                android:padding="10dp"
+                                android:layout_marginTop="10dp"
+                                android:textSize="20sp"
+                                android:textColor="#ffffffff"
+                                android:textColorHint="#ffffffff"
+                                android:layout_gravity="center_horizontal"
+                                android:imeOptions="actionDone"
+                                />
+
 
                         </LinearLayout>
                     </ScrollView>
@@ -184,6 +311,7 @@
                                 android:textColor="#ffffffff"
                                 android:textColorHint="#ffffffff"
                                 android:layout_gravity="center_horizontal"
+                                android:imeOptions="actionDone"
                                 />
 
 
@@ -531,57 +659,10 @@
                                 android:textColor="#ffffffff"
                                 android:textColorHint="#ffffffff"
                                 android:layout_gravity="center_horizontal"
+                                android:imeOptions="actionDone"
                                 />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Benachrichtigung:"
-                                android:id="@+id/textView20"
-                                android:layout_marginTop="5dp"
-                                android:textColor="#ffffffff"
-                                android:textSize="17dp" />
 
-                            <EditText
-                                android:id="@+id/benachrichtigung"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="20dp"
-                                android:background="#800000"
-                                android:inputType="text"
-                                android:maxLines="1"
-                                android:padding="10dp"
-                                android:layout_marginTop="10dp"
-                                android:textSize="20sp"
-                                android:textColor="#ffffffff"
-                                android:textColorHint="#ffffffff"
-                                android:layout_gravity="center_horizontal"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Notizen:"
-                                android:id="@+id/textView21"
-                                android:layout_marginTop="5dp"
-                                android:textColor="#ffffffff"
-                                android:textSize="17dp" />
-
-                            <EditText
-                                android:id="@+id/notizen"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="20dp"
-                                android:background="#800000"
-                                android:inputType="text"
-                                android:maxLines="5"
-                                android:padding="10dp"
-                                android:layout_marginTop="10dp"
-                                android:textSize="20sp"
-                                android:textColor="#ffffffff"
-                                android:textColorHint="#ffffffff"
-                                android:layout_gravity="center_horizontal"
-                                />
                         </LinearLayout>
                     </ScrollView>
                 </LinearLayout>
