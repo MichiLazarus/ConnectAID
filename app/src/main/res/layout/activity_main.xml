@@ -65,20 +65,21 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Aktuelle Einsätze:"
+                android:text="Aktueller Einsatz:"
                 android:textSize="17dp"
                 android:layout_marginTop="20dp"
                 android:textColor="#ffffff"/>
 
-            <Spinner
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/einsatz"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:id="@+id/einsaetze"
-                android:prompt="@string/einsatz_prompt"
-                android:spinnerMode="dialog"
-                android:background="@android:drawable/btn_dropdown"
-                />
+                android:textSize="17dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:background="@color/list_row_default_bg"
+                android:textColor="#ffffff"/>
 
             <TextView
                 android:id="@+id/noEntry"

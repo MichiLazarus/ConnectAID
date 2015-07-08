@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private String statusText;
     private TextView status;
     private TextView txtName;
-    private TextView txtEmail;
+    private TextView einsatz;
     private Button btnLogout;
     private Button btnScan;
     private ListView listPatient;
@@ -87,7 +87,35 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     public void fillList(){
-        einsatzIDs.clear();
+       einsatz = (TextView) findViewById(R.id.einsatz);
+        PatientActivity.phpfile = "https://81.217.54.146/showAktEinsaetze.php";
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("helferId", helferID));
+
+        try {
+            String result = new PatientData(MainActivity.this).execute(nameValuePairs).get();
+            System.out.println(result);
+            if (!result.equals("failed")) {
+                JSONArray jArray = new JSONArray(result);
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+                    einsatzID = (json_data.getString("id"));
+                    PatientActivity.einsatzID = einsatzID;
+               //     einsaetze.add(json_data.getString("strasse") + " " + json_data.getString("strasseNr") + " \n " + json_data.getString("plz") + " " + json_data.getString("land"));
+                    einsatz.setText(json_data.getString("strasse") + " " + json_data.getString("strasseNr") + "  " + json_data.getString("plz") + " " + json_data.getString("land")+"\n"+
+                    json_data.getString("notizen"));
+                }
+            }else{
+                einsatz.setText("keine Einsätze");
+            }
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }catch(ExecutionException e){
+            e.printStackTrace();
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        /*einsatzIDs.clear();
         einsaetze.clear();
         einsatzSelect = (Spinner) findViewById(R.id.einsaetze);
         PatientActivity.phpfile = "https://81.217.54.146/showAktEinsaetze.php";
@@ -121,7 +149,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,R.layout.spinnereinsatz, einsaetze);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         einsatzSelect.setAdapter(dataAdapter);
-    }
+    */}
 
     public void fillPatientList(){
         patientenIDs.clear();
