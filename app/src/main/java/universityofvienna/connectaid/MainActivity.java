@@ -196,8 +196,35 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         Intent nextScreen = new Intent(this,PatientActivity.class);
         this.startActivity(nextScreen);
 
+        new Thread() {
 
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                runOnUiThread(new Runnable() {
+
+
+                    @Override
+                    public void run() {
+                            setContentView(R.layout.activity_main);
+                            System.out.println("View wurde geändert");
+                            fillList();
+                            status = (TextView) findViewById(R.id.status);
+                            status.setText(statusText);
+                            btnLogout = (Button) findViewById(R.id.btnLogout);
+
+                    }
+                });
+
+            }
+        }.start();
     }
+
+
 
     public void onClickPatient(View view){
         if(einsatzID != null) {
@@ -209,6 +236,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                     .show();
         }
     }
+
+
 
     public void onClick(View view){
         if(einsatzID != null) {

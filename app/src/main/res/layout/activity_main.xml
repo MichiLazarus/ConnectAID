@@ -28,102 +28,113 @@
             android:weightSum="1">
 
 
-            <TextView
-                android:layout_width="wrap_content"
+            <ScrollView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Willkommen"
-                android:textSize="20dp"
-                android:textColor="#ffffff"/>
+                android:id="@+id/scrollView3" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Status:"
-                android:textSize="17dp"
-                android:layout_marginTop="30dp"
-                android:textColor="#ffffff"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
 
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_marginTop="5dp"
-                android:padding="5dp"
-                android:background="@color/list_row_default_bg"
-                android:textColor="#ffffff"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Willkommen"
+                        android:textSize="20dp"
+                        android:textColor="#ffffff"/>
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Transport beenden"
-                android:id="@+id/btnchangeState"
-                android:onClick="onClickState"
-                />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Status:"
+                        android:textSize="17dp"
+                        android:layout_marginTop="30dp"
+                        android:textColor="#ffffff"/>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Aktueller Einsatz:"
-                android:textSize="17dp"
-                android:layout_marginTop="20dp"
-                android:textColor="#ffffff"/>
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="5dp"
+                        android:background="@color/list_row_default_bg"
+                        android:textColor="#ffffff"/>
 
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Transport beenden"
+                        android:id="@+id/btnchangeState"
+                        android:onClick="onClickState"
+                        />
 
-            <TextView
-                android:id="@+id/einsatz"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_marginTop="5dp"
-                android:padding="5dp"
-                android:background="@color/list_row_default_bg"
-                android:textColor="#ffffff"/>
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Aktueller Einsatz:"
+                        android:textSize="17dp"
+                        android:layout_marginTop="20dp"
+                        android:textColor="#ffffff"/>
 
-            <TextView
-                android:id="@+id/noEntry"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Keine Einsätze vorhanden"
-                android:textSize="17dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff"
-                android:padding="5dp"
-                android:background="@color/list_row_default_bg"
-                android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/einsatz"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="17dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="5dp"
+                        android:background="@color/list_row_default_bg"
+                        android:textColor="#ffffff"/>
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Patienten anzeigen"
-                android:id="@+id/btnshowPatienten"
-                android:onClick="onClickPatient"
-                />
+                    <TextView
+                        android:id="@+id/noEntry"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Keine Einsätze vorhanden"
+                        android:textSize="17dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:textColor="#ffffff"
+                        android:padding="5dp"
+                        android:background="@color/list_row_default_bg"
+                        android:visibility="gone"/>
 
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Patienten anzeigen"
+                        android:id="@+id/btnshowPatienten"
+                        android:onClick="onClickPatient"
+                        />
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Scan"
-                android:id="@+id/btnScan"
-                android:onClick="onClick"
-                />
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Scan"
+                        android:id="@+id/btnScan"
+                        android:onClick="onClick"
+                        />
 
-            <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#000"
-                android:text="LOGOUT"
-                android:textAllCaps="false"
-                android:textColor="#ffffff"
-                android:textSize="15dp"
-                android:onClick="logoutUser"/>
+                    <Button
+                        android:id="@+id/btnLogout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="#000"
+                        android:text="LOGOUT"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp"
+                        android:onClick="logoutUser"/>
+                </LinearLayout>
+            </ScrollView>
 
 
         </LinearLayout>
