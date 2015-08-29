@@ -16,7 +16,10 @@ public class Patient {
     private boolean bewusstsein, atmung,kreislauf, sauerstoff, intubation, beatmung, blutstillung, pleuradrainage, dringend, verstorben;
 
 
-    public Patient(String id, String vorname, String nachname, String svnr, String gebdatum, String krankenhaus, String prioritaet, boolean bewusstsein, boolean atmung, boolean kreislauf, boolean sauerstoff, boolean intubation, boolean beatmung, boolean blutstillung, boolean pleuradrainage, boolean dringend, boolean verstorben, String medikamente, String benachrichtigung, String notizen) {
+    public Patient(String id, String vorname, String nachname, String svnr, String gebdatum, String krankenhaus,
+                   String prioritaet, boolean bewusstsein, boolean atmung, boolean kreislauf, boolean sauerstoff,
+                   boolean intubation, boolean beatmung, boolean blutstillung, boolean pleuradrainage, boolean dringend,
+                   boolean verstorben, String medikamente, String benachrichtigung, String notizen) {
         this.id = id;
         this.vorname = vorname;
         this.nachname = nachname;

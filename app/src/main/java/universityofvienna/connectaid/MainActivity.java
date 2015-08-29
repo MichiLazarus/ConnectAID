@@ -323,6 +323,12 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void logout(){
         session.setLogin(false);
         threadAlive=false;
+        PatientActivity.phpfile = "https://81.217.54.146/logout.php";
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("kennung", helferID));
+
+            new PatientData(MainActivity.this).execute(nameValuePairs);
+
         // Launching the login activity
         Intent intent = new Intent(MainActivity.this, LoginActivity1.class);
         startActivity(intent);
